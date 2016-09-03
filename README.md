@@ -1,6 +1,6 @@
 # [Cloudflare Email Protection Decode](http://pingturtle.com/home/post/cloudflare-email-protection-decoder0)
 
-### All the credit goes to the original auther [Brad at pingturtle](http://pingturtle.com/home/post/cloudflare-email-protection-decoder)
+### All the credit goes to the original auther [Brad at pingturtle](http://pingturtle.com/home/post/cloudflare-email-protection-decoder).
 
 Cloudflare (Link) is a pretty awesome way to speed up your site through their optimization and caching.  
 

@@ -10,15 +10,18 @@ They have a feature where you can "scramble" all email addresses listed on your 
 
 This got me curious as to what they did to hide the emails and decode them on the fly when the page is loaded. Its actually just a simple XOR encryption algorithm in Javascript with a random key set on every load. Below is their Javascript/span with encrypted email address as the class name...
 
-``` <a id="__cf_email__" href="http://cloudflare.com/email-protection.html" class="f091809582839f9eb080999e97848582849c95de939f9d">[email protected]</a>
+``` 
+<a id="__cf_email__" href="http://cloudflare.com/email-protection.html" class="f091809582839f9eb080999e97848582849c95de939f9d">[email protected]</a>
 <script type="text/javascript">
 /* <!--[CDATA[ */
 (function(){try{var s,a,i,j,r,c,l=document.getElementById("__cf_email__");a=l.className;if(a){s='';r=parseInt(a.substr(0,2),16);for(j=2;a.length-j;j+=2){c=parseInt(a.substr(j,2),16)^r;s+=String.fromCharCode(c);}s=document.createTextNode(s);l.parentNode.replaceChild(s,l);}}catch(e){}})();
 /* ]]--> */
-</script> ```
+</script>
+```
 ... which is a lot easier to read when you format it ...
 
-```(function () {
+```
+(function () {
     try {
         var s, a, i, j, r, c, l = document.getElementById("__cf_email__");
         a = l.className;
@@ -33,10 +36,12 @@ This got me curious as to what they did to hide the emails and decode them on th
             l.parentNode.replaceChild(s, l);
         }
     } catch (e) {}
-})();```
+})();
+```
 So anyways, I just took that function and re-wrote it in PHP and AutoIt. You need to feed the function the encrypted classname that is in the anchor tag that cloudflare inserts, and it will spit out the decoded email address. First, the php function...
 
-``` <?php
+``` 
+<?php
 echo 'Decoded Email: '.deCFEmail('f091809582839f9eb080999e97848582849c95de939f9d');
  
 function deCFEmail($c){
@@ -48,7 +53,8 @@ function deCFEmail($c){
 
 And the AutoIt version...
 
-``` Dim $enc = "f091809582839f9eb080999e97848582849c95de939f9d"
+``` 
+Dim $enc = "f091809582839f9eb080999e97848582849c95de939f9d"
  
 MsgBox(0,"","Decoded Email: " & deCFEmail($enc) )
  
@@ -59,6 +65,7 @@ Func deCFEmail($c)
         $m&=Chr(BitXOR(Dec(StringMid($c, $i+1, 2)),$k))
     Next
     Return $m
-EndFunc```
+EndFunc
+```
 ... and that's it! I suppose if you wanted to extract emails, you could write a regular expression to match the classname and the anchor tag that cloudflare uses, and extract/decode emails on the fly.
 
